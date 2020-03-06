@@ -10,6 +10,7 @@ server.use(routes);
 
 nunjucks.configure('views', { express: server});
 
-server.listen(5000, function(){
+var port = process.env.PORT || 3000;
+server.listen(port, function(){
     console.log('server is running!');
 });
