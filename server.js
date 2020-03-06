@@ -1,30 +1,15 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
-const recipes = require('./data');
 const server = express();
+const routes = require('./routes');
 
 server.set('view engine', 'njk');
 server.use(express.static('public'));
 server.use(express.static('assets'));
+server.use(routes);
 
 nunjucks.configure('views', { express: server});
 
-server.get('/', function(req, res){
-    return res.render('index', { items: recipes});
+server.listen(5000, function(){
+    console.log('server is running!');
 });
-
-server.get('/recipe', function(req, res){
-    const id = req.query.id;
-
-    return res.render('recipe', { item : recipes[id]});
-});
-
-server.get('/about', function(req, res){
-    return res.render('about');
-});
-
-server.get('/recipes', function(req, res){
-    return res.render('recipes', { items: recipes});
-})
-
-server.listen('5000');
